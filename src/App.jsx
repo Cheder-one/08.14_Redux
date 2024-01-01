@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { actionTypes, initiateStore } from "./store";
+import { initStore, actions } from "./store";
 
-const { TASK_UPDATED, ADD_TASK } = actionTypes;
-
-const store = initiateStore();
+const store = initStore();
 
 const App = () => {
   const [state, setState] = useState(store.getState());
@@ -15,32 +13,20 @@ const App = () => {
     });
   }, []);
 
-  const completeTask = (taskId) => {
-    const action = {
-      type: TASK_UPDATED,
-      payload: { id: taskId, completed: true },
-    };
-    store.dispatch(action);
+  const handleTaskComplete = (id) => {
+    store.dispatch(actions.taskCompleted(id));
   };
 
-  const changeTitle = (taskId) => {
-    const action = {
-      type: TASK_UPDATED,
-      payload: { id: taskId, title: `New Title ${taskId}` },
-    };
-    store.dispatch(action);
+  const handleTitleChange = (id) => {
+    store.dispatch(actions.titleChanged(id));
   };
 
-  const addTask = () => {
-    const action = {
-      type: ADD_TASK,
-      payload: {
-        id: state.length + 1,
-        title: "New Task",
-        completed: false,
-      },
-    };
-    store.dispatch(action);
+  const handleTaskAdd = () => {
+    store.dispatch(actions.taskAdded());
+  };
+
+  const handleTaskDelete = (id) => {
+    store.dispatch(actions.taskDeleted(id));
   };
 
   return (
@@ -51,12 +37,15 @@ const App = () => {
         <li key={task.id}>
           <span>{task.title}</span>
           <span> {task.completed ? "✅" : "❌"}</span> <p />
-          <button onClick={() => completeTask(task.id)}>Complete</button>{" "}
-          <button onClick={() => changeTitle(task.id)}>Change Title</button>{" "}
+          <button onClick={() => handleTaskComplete(task.id)}>Complete</button>
+          <button onClick={() => handleTitleChange(task.id)}>
+            Change Title
+          </button>
+          <button onClick={() => handleTaskDelete(task.id)}>Delete</button>
           <hr />
         </li>
       ))}
-      <button onClick={addTask}>Add Task</button>
+      <button onClick={handleTaskAdd}>Add Task</button>
     </>
   );
 };

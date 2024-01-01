@@ -8,7 +8,6 @@ function createStore(reducer, initState) {
 
   function dispatch(action) {
     state = reducer(state, action);
-
     listeners.forEach((listener) => listener());
     // Notify all listeners that the state has changed.
   }

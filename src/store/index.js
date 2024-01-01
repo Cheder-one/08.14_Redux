@@ -1,6 +1,4 @@
-import initiateStore from "./store";
-import actionTypes from "./actionTypes";
-// import createStore from "./createStore";
-// import taskReducer from "./taskReducer";
+import initStore from "./store";
+import actions from "./actions";
 
-export { initiateStore, actionTypes };
+export { actions, initStore };

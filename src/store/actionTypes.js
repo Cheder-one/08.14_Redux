@@ -1,4 +1,3 @@
-const TASK_UPDATED = "tasks/updated";
-const ADD_TASK = "tasks/added";
-
-export default { TASK_UPDATED, ADD_TASK };
+export const TASK_ADDED = "tasks/added";
+export const TASK_UPDATED = "tasks/updated";
+export const TASK_DELETED = "tasks/deleted";
